@@ -1,0 +1,26 @@
+{
+  "name": "telegram-monitoring-bot",
+  "version": "1.0.0",
+  "description": "Bot to monitor infrastructure",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigermarques/telegram-monitoring-bot.git"
+  },
+  "keywords": [
+    "telegram",
+    "monitoring"
+  ],
+  "author": "JGM",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tigermarques/telegram-monitoring-bot/issues"
+  },
+  "homepage": "https://github.com/tigermarques/telegram-monitoring-bot#readme",
+  "dependencies": {
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
