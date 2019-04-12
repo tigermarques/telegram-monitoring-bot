@@ -1,0 +1,17 @@
+[
+  {
+    "username": "jgmarques",
+    "chatId": 169621443,
+    "isAdmin": true
+  },
+  {
+    "username": "pnfilipe",
+    "chatId": 162211437,
+    "isAdmin": false
+  },
+  {
+    "username": "jcmrodrigues",
+    "chatId": 118031923,
+    "isAdmin": false
+  }
+]

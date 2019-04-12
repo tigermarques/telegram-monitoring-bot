@@ -1,0 +1,42 @@
+[
+  {
+    "username": "jgmarques",
+    "month": "April",
+    "day": "6",
+    "release": "RE3GCC",
+    "workType": "Coordenação",
+    "hours": "8"
+  },
+  {
+    "username": "pnfilipe",
+    "month": "April",
+    "day": "12",
+    "release": "Suporte",
+    "workType": "Suporte",
+    "hours": "2"
+  },
+  {
+    "username": "pnfilipe",
+    "month": "April",
+    "day": "12",
+    "release": "RE3GACDO",
+    "workType": "Coordenação",
+    "hours": "1"
+  },
+  {
+    "username": "pnfilipe",
+    "month": "April",
+    "day": "12",
+    "release": "Gestão",
+    "workType": "Coordenação",
+    "hours": "3"
+  },
+  {
+    "username": "jcmrodrigues",
+    "month": "April",
+    "day": "12",
+    "release": "RE3GCAC",
+    "workType": "Desenvolvimento",
+    "hours": "8"
+  }
+]
