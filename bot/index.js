@@ -1,11 +1,25 @@
 const TelegramBot = require('node-telegram-bot-api')
 const addCommands = require('./commands')
 const addAdminCommands = require('./adminCommands')
+const db = require('./utils/db')
+const InteractionManager = require('./utils/InteractionManager')
 
-// Create a bot that uses 'polling' to fetch new updates
-const bot = new TelegramBot(process.env.TELEGRAM_API_TOKEN, { polling: true })
+const start = async () => {
+  await db.connect()
+  // Create a bot that uses 'polling' to fetch new updates
+  const bot = new TelegramBot(process.env.TELEGRAM_API_TOKEN, { polling: true })
 
-addCommands(bot)
-addAdminCommands(bot)
+  InteractionManager.setup(bot)
+  addCommands(bot)
+  addAdminCommands(bot)
 
-module.exports = bot
+  bot.on('polling_error', error => {
+    console.log(error)
+  })
+
+  return bot
+}
+
+module.exports = {
+  start
+}
