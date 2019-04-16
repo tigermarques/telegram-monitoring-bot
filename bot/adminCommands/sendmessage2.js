@@ -107,6 +107,6 @@ const bot = new Composer()
 const stage = new Stage([scene])
 
 bot.use(stage.middleware())
-bot.command('sendMessage', enter('send-message'))
+bot.command('sendmessage', enter('send-message'))
 
 module.exports = bot

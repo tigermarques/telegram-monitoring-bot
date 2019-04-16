@@ -2,7 +2,7 @@ const echo = require('./echo')
 const getlogs = require('./getlogs')
 const log = require('./log')
 const register = require('./register')
-const registerAdmin = require('./registerAdmin')
+const registeradmin = require('./registeradmin')
 const unregister = require('./unregister')
 
 module.exports = {
@@ -10,6 +10,6 @@ module.exports = {
   getlogs,
   log,
   register,
-  registerAdmin,
+  registeradmin,
   unregister
 }
