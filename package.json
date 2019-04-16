@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "serve": "nodemon -r dotenv/config index.js",
-    "upgrade-database": "node -r dotenv/config buildTools/handleMigrationState",
+    "upgrade-database": "migrate up --store=\"./migrationState/index\"",
     "build": "npm run upgrade-database",
     "start": "node -r dotenv/config index.js"
   },
