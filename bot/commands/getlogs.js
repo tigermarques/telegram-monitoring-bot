@@ -5,7 +5,6 @@ const fullRegex = /^(\d{4})-(\d{2})-(\d{2}) (\d{4})-(\d{2})-(\d{2})$/
 const simpleRegex = /^(\d{4})-(\d{2})-(\d{2})$/
 
 const command = async ctx => {
-  console.log('here')
   const username = ctx.state.from
   const args = ctx.state.command.args
   let filter = null
@@ -61,6 +60,8 @@ const command = async ctx => {
         source: wbout,
         filename: `Work ${username}.xlsx`
       })
+    } else {
+      ctx.reply('Não existem dados para mostrar')
     }
   } else {
     ctx.reply('Não percebi o comando')

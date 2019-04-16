@@ -1,5 +1,5 @@
 const echo = require('./echo')
-const getlogs = require('./getlogs2')
+const getlogs = require('./getlogs')
 const log = require('./log')
 const register = require('./register')
 const registerAdmin = require('./registerAdmin')
