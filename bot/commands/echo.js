@@ -1,9 +1,5 @@
-const registerCommand = bot => {
-  bot.onText(/\/echo (.+)/, (msg, match) => {
-    const chatId = msg.chat.id
-    const resp = match[1]
-    bot.sendMessage(chatId, resp)
-  })
+const command = ctx => {
+  ctx.reply(`Echoing ${ctx.state.command.args}`)
 }
 
-module.exports = registerCommand
+module.exports = command

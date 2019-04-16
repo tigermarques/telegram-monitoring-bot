@@ -1,13 +1,15 @@
-const addEchoCommand = require('./echo')
-const addRegisterCommand = require('./register')
-const addLogCommand = require('./log')
-const addGetLogsCommand = require('./getLogs')
-const addUnregisterCommand = require('./unregister')
+const echo = require('./echo')
+const getlogs = require('./getlogs2')
+const log = require('./log')
+const register = require('./register')
+const registerAdmin = require('./registerAdmin')
+const unregister = require('./unregister')
 
-module.exports = bot => {
-  addEchoCommand(bot)
-  addRegisterCommand(bot)
-  addLogCommand(bot)
-  addGetLogsCommand(bot)
-  addUnregisterCommand(bot)
+module.exports = {
+  echo,
+  getlogs,
+  log,
+  register,
+  registerAdmin,
+  unregister
 }

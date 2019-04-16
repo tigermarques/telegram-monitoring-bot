@@ -1,23 +1,19 @@
+const Composer = require('telegraf/composer')
+const Extra = require('telegraf/extra')
+const Stage = require('telegraf/stage')
+const Scene = require('telegraf/scenes/base')
 const usersModel = require('../model/users')
-const Interaction = require('../utils/interaction')
+const { enter, leave } = Stage
 
 const prepareQuestion1 = async (username) => {
   const allUsers = await usersModel.getAll()
   const allButMe = allUsers.filter(item => item.username !== username)
-  const keyboard = allButMe.map(user => {
-    return [{
-      text: user.username,
-      callback_data: user.username
-    }]
-  })
+  const markup = Extra.HTML().markup(m => m.inlineKeyboard(
+    allButMe.map(item => m.callbackButton(item.username, item.username))), { columns: 4 })
+
   return {
-    options: {
-      parse_mode: 'Markdown',
-      reply_markup: {
-        inline_keyboard: keyboard
-      }
-    },
-    text: 'Escolhe o utilizador para o qual queres enviar uma mensagem'
+    text: 'Escolhe o utilizador para o qual queres enviar uma mensagem',
+    options: markup
   }
 }
 
@@ -27,56 +23,90 @@ const prepareQuestion2 = async (username) => {
   }
 }
 
-const registerCommand = bot => {
-  bot.onText(/^\/sendMessage$/, async (msg, match) => {
-    const chatId = msg.chat.id
-    const username = msg.from.username
+const scene = new Scene('send-message')
 
-    if (!username) {
-      bot.sendMessage(chatId, 'Parece que não tens username. Para usar este comando, o teu utilizador tem de ter um username de Telegram')
-    } else {
-      const user = await usersModel.getByUsername(username)
-      if (!user) {
-        bot.sendMessage(chatId, 'Parece que ainda não te registaste. Usa o comando /register para te registares no bot')
-      } else if (!user.isAdmin) {
-        bot.sendMessage(chatId, 'Não tens privilégios para utilizar este comando')
-      } else {
-        const interaction = Interaction.create(bot, chatId)
+scene.enter(async ctx => {
+  const username = ctx.state.from
+  const question = await prepareQuestion1(username)
+  ctx.session.form = {
+    currentStep: 'question1',
+    data: {
+      originator: username
+    },
+    allSteps: [{
+      id: 'question1',
+      text: question.text
+    }]
+  }
+  ctx.reply(question.text, question.options)
+})
 
-        if (interaction) {
-          try {
-            const question1 = await prepareQuestion1(username)
-            const reply1 = await interaction.send(question1.text, question1.options)
+scene.leave((ctx) => {
+  delete ctx.session.form
+})
 
-            const question2 = await prepareQuestion2(reply1.data)
-            const reply2 = await interaction.send(question2.text, question2.options)
+scene.command('cancel', leave())
 
-            interaction.end()
+scene.on('text', async ctx => {
+  switch (ctx.session.form.currentStep) {
+    case 'question1':
+      // do nothing here because we are expecting text
+      break
+    case 'question2':
+      const answer = ctx.message.text
+      ctx.session.form.currentStep = 'answer2'
+      ctx.session.form.allSteps.push({
+        id: 'answer2',
+        text: answer
+      })
 
-            const userToSend = await usersModel.getByUsername(reply1.data)
-            const textToSend = reply2.text
+      const usernameToSend = ctx.session.form.allSteps.find(item => item.id === 'answer1').text
+      const textToSend = answer
+      const originator = ctx.session.form.data.originator
+      const userToSend = await usersModel.getByUsername(usernameToSend)
 
-            bot.sendMessage(userToSend.chatId, `O utilizador ${username} disse o seguinte:
+      ctx.telegram.sendMessage(userToSend.chatId, `O utilizador ${originator} disse o seguinte:
 ${textToSend}`)
-          } catch (error) {
-            console.log(error)
-          }
-        } else {
-          bot.sendMessage(chatId, 'O commando já está a correr. As mensagens vão ser apagadas em 5 segundos')
-            .then(message => {
-              setTimeout(() => {
-                bot.deleteMessage(chatId, message.message_id)
-                bot.deleteMessage(chatId, msg.message_id)
-              }, 5000)
-            })
-            .catch(error => {
-              interaction.end()
-              console.log(error)
-            })
-        }
-      }
-    }
-  })
-}
+      ctx.reply('Mensagem enviada com sucesso')
+      leave()(ctx)
+      break
+    default:
+      break
+  }
+})
 
-module.exports = registerCommand
+scene.on('callback_query', async ctx => {
+  switch (ctx.session.form.currentStep) {
+    case 'question1':
+      const answer = ctx.callbackQuery.data
+      ctx.session.form.currentStep = 'answer1'
+      ctx.session.form.allSteps.push({
+        id: 'answer1',
+        text: answer
+      })
+      ctx.answerCbQuery()
+      const question = await prepareQuestion2(answer)
+      ctx.session.form.currentStep = 'question2'
+      ctx.session.form.allSteps.push({
+        id: 'question2',
+        text: question.text
+      })
+      ctx.reply(question.text, question.options)
+      break
+    case 'question2':
+      // do nothing here because we are expecting text
+      break
+    default:
+      break
+  }
+})
+scene.on('message', (ctx) => ctx.reply('Only text messages please'))
+
+const bot = new Composer()
+
+const stage = new Stage([scene])
+
+bot.use(stage.middleware())
+bot.command('sendMessage', enter('send-message'))
+
+module.exports = bot

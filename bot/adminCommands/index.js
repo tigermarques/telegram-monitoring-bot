@@ -1,7 +1,5 @@
-const addRegisterCommand = require('./register')
-const addSendMessageCommand = require('./sendMessage')
+const sendMessage = require('./sendMessage')
 
-module.exports = bot => {
-  addRegisterCommand(bot)
-  addSendMessageCommand(bot)
+module.exports = {
+  sendMessage
 }

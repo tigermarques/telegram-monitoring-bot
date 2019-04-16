@@ -1,21 +1,39 @@
-const TelegramBot = require('node-telegram-bot-api')
-const addCommands = require('./commands')
-const addAdminCommands = require('./adminCommands')
+const Telegraf = require('telegraf')
+const session = require('telegraf/session')
+const commandParts = require('telegraf-command-parts')
 const db = require('./utils/db')
-const InteractionManager = require('./utils/InteractionManager')
+const commands = require('./commands')
+const adminCommands = require('./adminCommands')
+const middleware = require('./middleware')
 
 const start = async () => {
   await db.connect()
-  // Create a bot that uses 'polling' to fetch new updates
-  const bot = new TelegramBot(process.env.TELEGRAM_API_TOKEN, { polling: true })
+  const bot = new Telegraf(process.env.TELEGRAM_API_TOKEN)
 
-  InteractionManager.setup(bot)
-  addCommands(bot)
-  addAdminCommands(bot)
+  // this stores the commands in ctx.state.command, with the following properties
+  // text '/start@yourbot Hello world!'
+  // command 'start'
+  // bot 'yourbot'
+  // args 'Hello world!'
+  // splitArgs ['Hello', 'world!']
+  bot.use(session())
+  bot.use(commandParts())
+  bot.use(middleware.filterScope(middleware.checkUsername, { exclude: ['start', 'help', 'echo'] }))
+  bot.use(middleware.filterScope(middleware.checkRegister(false), { include: ['register', 'registerAdmin'] }))
+  bot.use(middleware.filterScope(middleware.checkRegister(true), { include: ['unregister', 'sendmessage', 'log', 'getlogs'] }))
+  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage'] }))
 
-  bot.on('polling_error', error => {
-    console.log(error)
-  })
+  bot.start(ctx => ctx.reply(`Welcome ${ctx.from.username}!`))
+  bot.help(ctx => ctx.reply(`Help ${ctx.from.username}!`))
+  bot.command('echo', commands.echo)
+  bot.command('register', commands.register)
+  bot.command('registerAdmin', commands.registerAdmin)
+  bot.command('unregister', commands.unregister)
+  bot.command('getlogs', commands.getlogs)
+  bot.use(commands.log)
+  bot.use(adminCommands.sendMessage)
+
+  bot.launch()
 
   return bot
 }
