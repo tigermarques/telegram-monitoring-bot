@@ -1,1 +1,1 @@
-web: npm run upgrade-database && npm start
+bot: npm run upgrade-database && npm start
