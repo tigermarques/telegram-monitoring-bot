@@ -16,7 +16,7 @@ const prepareQuestion1 = async (work) => {
   }
 
   const markup = Extra.HTML().markup(m => m.inlineKeyboard(
-    users.map(item => m.callbackButton(item, item))), { columns: 4 })
+    users.map(item => m.callbackButton(item, item)), { columns: 4 }))
 
   return {
     text: [
