@@ -20,8 +20,9 @@ const start = async () => {
   bot.use(commandParts())
   bot.use(middleware.filterScope(middleware.checkUsername, { exclude: ['start', 'help', 'echo'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(false), { include: ['register', 'registeradmin'] }))
-  bot.use(middleware.filterScope(middleware.checkRegister(true), { include: ['unregister', 'sendmessage', 'log', 'getlogs'] }))
-  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage'] }))
+  bot.use(middleware.filterScope(middleware.checkRegister(true),
+    { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs'] }))
+  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs'] }))
 
   bot.start(ctx => ctx.reply(`Welcome ${ctx.from.username}!`))
   bot.help(ctx => ctx.reply(`Help ${ctx.from.username}!`))
@@ -31,7 +32,8 @@ const start = async () => {
   bot.command('unregister', commands.unregister)
   bot.command('getlogs', commands.getlogs)
   bot.use(commands.log)
-  bot.use(adminCommands.senmMessage)
+  bot.use(adminCommands.sendmessage)
+  bot.use(adminCommands.getuserlogs)
 
   bot.launch()
 
