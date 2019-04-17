@@ -19,7 +19,7 @@ const command = async ctx => {
     const date2 = new Date(Number(groups[4]), Number(groups[5]) - 1, Number(groups[6]), 23, 59, 59)
     filter = item => {
       return item.username === username &&
-        item.workDate >= date1 && item.date <= date2
+        item.workDate >= date1 && item.workDate <= date2
     }
   } else if (simpleRegex.test(args)) {
     // they used /getLogs date1
