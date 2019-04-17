@@ -1,7 +1,6 @@
 const command = ctx => {
   const messages = [
-    '<h2>Welcome to ATL Management Bot</h2>',
-    '<br />',
+    '<p>Welcome to ATL Management Bot</p>',
     '<p>The list of commands are:</p>'
   ]
   ctx.replyWithHTML(messages.join(''))
