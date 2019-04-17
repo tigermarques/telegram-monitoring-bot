@@ -45,7 +45,10 @@ scene.leave((ctx) => {
   delete ctx.session.form
 })
 
-scene.command('cancel', leave())
+scene.command('cancel', ctx => {
+  ctx.reply('Comando cancelado')
+  leave()(ctx)
+})
 
 scene.on('text', async ctx => {
   switch (ctx.session.form.currentStep) {
