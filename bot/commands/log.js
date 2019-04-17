@@ -110,6 +110,7 @@ scene.command('cancel', ctx => {
 scene.on('callback_query', async ctx => {
   let question, answer
   console.log(ctx.callbackQuery.data)
+  console.log(ctx.session.form)
   switch (ctx.session.form.currentStep) {
     case 'question1':
       if (ctx.session.form.previousStep === null) {
