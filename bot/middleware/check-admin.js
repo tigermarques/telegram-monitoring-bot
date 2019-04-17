@@ -1,7 +1,7 @@
 const usersModel = require('../model/users')
 
 const middleware = mustBeAdmin => async (ctx, next) => {
-  console.log('calling check-admin')
+  // console.log('calling check-admin')
   const user = await usersModel.getByUsername(ctx.state.from)
   if (mustBeAdmin && !user.isAdmin) {
     ctx.reply('Para realizar este comando tens de ser administrador')
