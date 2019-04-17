@@ -129,7 +129,7 @@ scene.on('callback_query', async ctx => {
 
         ctx.replyWithDocument({
           source: wbout,
-          filename: `Work ${ctx.session.form.data.originator}.xlsx`
+          filename: `Work ${answer}.xlsx`
         })
         leave()(ctx)
       } else {
