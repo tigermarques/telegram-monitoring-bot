@@ -8,8 +8,13 @@ const { enter, leave } = Stage
 const prepareQuestion1 = async (username) => {
   const allUsers = await usersModel.getAll()
   const allButMe = allUsers.filter(item => item.username !== username)
+  if (allButMe.length > 1) {
+    allButMe.push({
+      username: 'Todos'
+    })
+  }
   const markup = Extra.HTML().markup(m => m.inlineKeyboard(
-    allButMe.map(item => m.callbackButton(item.username, item.username))), { columns: 4 })
+    allButMe.map(item => m.callbackButton(item.username, item.username)), { columns: 4 }))
 
   return {
     text: [
@@ -22,7 +27,7 @@ const prepareQuestion1 = async (username) => {
 
 const prepareQuestion2 = async (username) => {
   return {
-    text: `Por favor escreve a mensagem a enviar para o ${username}`
+    text: `Por favor escreve a mensagem a enviar para "${username}"`
   }
 }
 
@@ -69,10 +74,19 @@ scene.on('text', async ctx => {
       const usernameToSend = ctx.session.form.allSteps.find(item => item.id === 'answer1').text
       const textToSend = answer
       const originator = ctx.session.form.data.originator
-      const userToSend = await usersModel.getByUsername(usernameToSend)
 
-      ctx.telegram.sendMessage(userToSend.chatId, `O utilizador ${originator} disse o seguinte:
-${textToSend}`)
+      if (usernameToSend === 'Todos') {
+        const allUsers = await usersModel.getAll()
+        const allButMe = allUsers.filter(item => item.username !== originator)
+
+        allButMe.forEach(item => {
+          ctx.telegram.sendMessage(item.chatId, `O utilizador ${originator} disse o seguinte:\n${textToSend}`)
+        })
+      } else {
+        const userToSend = await usersModel.getByUsername(usernameToSend)
+
+        ctx.telegram.sendMessage(userToSend.chatId, `O utilizador ${originator} disse o seguinte:\n${textToSend}`)
+      }
       ctx.reply('Mensagem enviada com sucesso')
       leave()(ctx)
       break
