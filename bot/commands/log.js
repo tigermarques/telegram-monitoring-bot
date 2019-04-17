@@ -35,7 +35,10 @@ const prepareQuestion2 = async (monthChosen) => {
   })
 
   return {
-    text: 'Começa por escolher a data para o registo',
+    text: [
+      'Começa por escolher a data para o registo',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }
@@ -47,7 +50,10 @@ const prepareQuestion3 = async () => {
     onGoingReleases.map(item => m.callbackButton(item.name, item.name)), { columns: 3 }))
 
   return {
-    text: 'Em que Release vais registar estas horas?',
+    text: [
+      'Em que Release vais registar estas horas?',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }
@@ -59,7 +65,10 @@ const prepareQuestion4 = async () => {
     existingWorkTypes.map(item => m.callbackButton(item.name, item.name)), { columns: 1 }))
 
   return {
-    text: 'Qual o tipo de trabalho desenvolvido?',
+    text: [
+      'Qual o tipo de trabalho desenvolvido?',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }
@@ -74,7 +83,10 @@ const prepareQuestion5 = async () => {
   })
 
   return {
-    text: 'Quantas horas pretendes registar?',
+    text: [
+      'Quantas horas pretendes registar?',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }
@@ -120,7 +132,7 @@ scene.on('callback_query', async ctx => {
         text: answer
       })
       ctx.answerCbQuery()
-      question = await prepareQuestion2(answer)
+      question = await prepareQuestion2(Number(answer))
       ctx.session.form.currentStep = 'question2'
       newQuestion = {
         id: 'question2',
