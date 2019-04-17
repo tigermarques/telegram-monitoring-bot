@@ -33,24 +33,22 @@ scene.enter(async ctx => {
   let filter = null
 
   if (!args) {
-    // they used /getLogs only
-    filter = item => item.username === username
+    // they used /getuserlogs only
+    filter = item => item
   } else if (fullRegex.test(args)) {
-    // they used /getLogs date1 date2
+    // they used /getuserlogs date1 date2
     const groups = args.match(fullRegex)
     const date1 = new Date(Number(groups[1]), Number(groups[2]) - 1, Number(groups[3]), 0, 0, 0)
     const date2 = new Date(Number(groups[4]), Number(groups[5]) - 1, Number(groups[6]), 23, 59, 59)
     filter = item => {
-      return item.username === username &&
-        item.workDate >= date1 && item.date <= date2
+      return item.workDate >= date1 && item.date <= date2
     }
   } else if (simpleRegex.test(args)) {
-    // they used /getLogs date1
+    // they used /getuserlogs date1
     const groups = args.match(simpleRegex)
     const date1 = new Date(Number(groups[1]), Number(groups[2]) - 1, Number(groups[3]), 0, 0, 0)
     filter = item => {
-      return item.username === username &&
-        item.workDate.getTime() === date1.getTime()
+      return item.workDate.getTime() === date1.getTime()
     }
   }
 
@@ -99,7 +97,7 @@ scene.on('callback_query', async ctx => {
 
       const work = ctx.session.form.data.work
 
-      const filteredWork = work.filter(item => item.username === answer)
+      const filteredWork = work.filter(item => answer === 'Todos' || item.username === answer)
       if (filteredWork.length > 0) {
         const mappedWork = filteredWork.map(item => {
           return {
