@@ -84,18 +84,19 @@ const scene = new Scene('log-work')
 scene.enter(async ctx => {
   const username = ctx.state.from
   const question = await prepareQuestion1()
+  const message = {
+    id: 'question1',
+    text: question.text
+  }
   ctx.session.form = {
     currentStep: 'question1',
     data: {
       originator: username
     },
-    allSteps: [{
-      id: 'question1',
-      text: question.text
-    }]
+    allSteps: [message]
   }
   const res = await ctx.reply(question.text, question.options)
-  console.log(res)
+  message.messageId = res.message_id
 })
 
 scene.leave((ctx) => {
@@ -108,11 +109,10 @@ scene.command('cancel', ctx => {
 })
 
 scene.on('callback_query', async ctx => {
-  let question, answer
+  let question, answer, res, newQuestion
   switch (ctx.session.form.currentStep) {
     case 'question1':
       answer = ctx.callbackQuery.data
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'answer1'
       ctx.session.form.allSteps.push({
         id: 'answer1',
@@ -120,17 +120,17 @@ scene.on('callback_query', async ctx => {
       })
       ctx.answerCbQuery()
       question = await prepareQuestion2(answer)
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'question2'
-      ctx.session.form.allSteps.push({
+      newQuestion = {
         id: 'question2',
         text: question.text
-      })
-      ctx.reply(question.text, question.options)
+      }
+      ctx.session.form.allSteps.push(newQuestion)
+      res = await ctx.reply(question.text, question.options)
+      newQuestion.messageId = res.message_id
       break
     case 'question2':
       answer = ctx.callbackQuery.data
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'answer2'
       ctx.session.form.allSteps.push({
         id: 'answer2',
@@ -138,17 +138,17 @@ scene.on('callback_query', async ctx => {
       })
       ctx.answerCbQuery()
       question = await prepareQuestion3()
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'question3'
-      ctx.session.form.allSteps.push({
+      newQuestion = {
         id: 'question3',
         text: question.text
-      })
-      ctx.reply(question.text, question.options)
+      }
+      ctx.session.form.allSteps.push(newQuestion)
+      res = ctx.reply(question.text, question.options)
+      newQuestion.messageId = res.message_id
       break
     case 'question3':
       answer = ctx.callbackQuery.data
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'answer3'
       ctx.session.form.allSteps.push({
         id: 'answer3',
@@ -156,17 +156,17 @@ scene.on('callback_query', async ctx => {
       })
       ctx.answerCbQuery()
       question = await prepareQuestion4()
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'question4'
-      ctx.session.form.allSteps.push({
+      newQuestion = {
         id: 'question4',
         text: question.text
-      })
-      ctx.reply(question.text, question.options)
+      }
+      ctx.session.form.allSteps.push(newQuestion)
+      res = ctx.reply(question.text, question.options)
+      newQuestion.messageId = res.message_id
       break
     case 'question4':
       answer = ctx.callbackQuery.data
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'answer4'
       ctx.session.form.allSteps.push({
         id: 'answer4',
@@ -174,17 +174,17 @@ scene.on('callback_query', async ctx => {
       })
       ctx.answerCbQuery()
       question = await prepareQuestion5()
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'question5'
-      ctx.session.form.allSteps.push({
+      newQuestion = {
         id: 'question5',
         text: question.text
-      })
-      ctx.reply(question.text, question.options)
+      }
+      ctx.session.form.allSteps.push(newQuestion)
+      res = ctx.reply(question.text, question.options)
+      newQuestion.messageId = res.message_id
       break
     case 'question5':
       answer = ctx.callbackQuery.data
-      ctx.session.form.previousStep = ctx.session.form.currentStep
       ctx.session.form.currentStep = 'answer5'
       ctx.session.form.allSteps.push({
         id: 'answer5',
