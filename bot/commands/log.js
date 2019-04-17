@@ -15,7 +15,10 @@ const prepareQuestion1 = async () => {
     months.map((item, i) => m.callbackButton(item, i)), { columns: 4 }))
 
   return {
-    text: 'Começa por escolher a data para o registo',
+    text: [
+      'Começa por escolher a data para o registo',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }

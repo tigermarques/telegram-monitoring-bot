@@ -72,9 +72,11 @@ scene.enter(async ctx => {
       ctx.reply(question.text, question.options)
     } else {
       ctx.reply('Não existem dados para mostrar')
+      leave()(ctx)
     }
   } else {
     ctx.reply('Não percebi o comando')
+    leave()(ctx)
   }
 })
 
@@ -123,8 +125,10 @@ scene.on('callback_query', async ctx => {
           source: wbout,
           filename: `Work ${ctx.session.form.data.originator}.xlsx`
         })
+        leave()(ctx)
       } else {
         ctx.reply('Não existem dados para mostrar')
+        leave()(ctx)
       }
       break
     default:
