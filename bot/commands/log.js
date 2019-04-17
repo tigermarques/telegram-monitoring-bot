@@ -113,6 +113,7 @@ scene.on('callback_query', async ctx => {
   switch (ctx.session.form.currentStep) {
     case 'question1':
       answer = ctx.callbackQuery.data
+      ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question1').messageId)
       ctx.session.form.currentStep = 'answer1'
       ctx.session.form.allSteps.push({
         id: 'answer1',
@@ -131,6 +132,7 @@ scene.on('callback_query', async ctx => {
       break
     case 'question2':
       answer = ctx.callbackQuery.data
+      ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question2').messageId)
       ctx.session.form.currentStep = 'answer2'
       ctx.session.form.allSteps.push({
         id: 'answer2',
@@ -149,6 +151,7 @@ scene.on('callback_query', async ctx => {
       break
     case 'question3':
       answer = ctx.callbackQuery.data
+      ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question3').messageId)
       ctx.session.form.currentStep = 'answer3'
       ctx.session.form.allSteps.push({
         id: 'answer3',
@@ -167,6 +170,7 @@ scene.on('callback_query', async ctx => {
       break
     case 'question4':
       answer = ctx.callbackQuery.data
+      ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question4').messageId)
       ctx.session.form.currentStep = 'answer4'
       ctx.session.form.allSteps.push({
         id: 'answer4',
@@ -185,6 +189,7 @@ scene.on('callback_query', async ctx => {
       break
     case 'question5':
       answer = ctx.callbackQuery.data
+      ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question5').messageId)
       ctx.session.form.currentStep = 'answer5'
       ctx.session.form.allSteps.push({
         id: 'answer5',
