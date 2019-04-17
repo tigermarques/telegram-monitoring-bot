@@ -117,6 +117,7 @@ scene.leave((ctx) => {
 
 scene.command('cancel', ctx => {
   ctx.reply('Comando cancelado')
+  ctx.deleteMessage(ctx.session.form.allSteps[ctx.session.form.allSteps.length - 1].messageId)
   leave()(ctx)
 })
 
