@@ -18,15 +18,15 @@ const start = async () => {
   // splitArgs ['Hello', 'world!']
   bot.use(session())
   bot.use(commandParts())
-  bot.use(middleware.filterScope(middleware.checkUsername, { exclude: ['start', 'help', 'echo'] }))
+  bot.use(middleware.filterScope(middleware.checkUsername, { exclude: ['start', 'help'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(false), { include: ['register', 'registeradmin'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(true),
     { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs'] }))
   bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs'] }))
 
   bot.start(ctx => ctx.reply(`Welcome ${ctx.from.username}!`))
-  bot.help(ctx => ctx.reply(`Help ${ctx.from.username}!`))
-  bot.command('echo', commands.echo)
+  bot.help(ctx => commands.help)
+  // bot.command('echo', commands.echo)
   bot.command('register', commands.register)
   bot.command('registeradmin', commands.registeradmin)
   bot.command('unregister', commands.unregister)
