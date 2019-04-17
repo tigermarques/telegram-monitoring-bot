@@ -19,7 +19,10 @@ const prepareQuestion1 = async (work) => {
     users.map(item => m.callbackButton(item, item))), { columns: 4 })
 
   return {
-    text: 'Escolhe o utilizador para o qual queres receber os logs',
+    text: [
+      'Escolhe o utilizador para o qual queres receber os logs',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }

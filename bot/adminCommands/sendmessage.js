@@ -12,7 +12,10 @@ const prepareQuestion1 = async (username) => {
     allButMe.map(item => m.callbackButton(item.username, item.username))), { columns: 4 })
 
   return {
-    text: 'Escolhe o utilizador para o qual queres enviar uma mensagem',
+    text: [
+      'Escolhe o utilizador para o qual queres enviar uma mensagem',
+      'A qualquer momento podes cancelar o registo usando /cancel'
+    ].join('\n'),
     options: markup
   }
 }
