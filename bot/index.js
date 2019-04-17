@@ -24,7 +24,7 @@ const start = async () => {
     { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs'] }))
   bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs'] }))
 
-  bot.start(ctx => ctx.reply(`Welcome ${ctx.from.username}!`))
+  bot.start(commands.help)
   bot.help(commands.help)
   // bot.command('echo', commands.echo)
   bot.command('register', commands.register)
