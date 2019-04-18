@@ -44,8 +44,8 @@ const prepareQuestion2 = async (monthChosen) => {
 }
 
 const prepareQuestion3 = async () => {
-  const onGoingReleases = await releasesModel.getAll()
-    .filter(item => item.status !== 'Por Iniciar' && item.status !== 'Rollout Efectuado')
+  let onGoingReleases = await releasesModel.getAll()
+  onGoingReleases = onGoingReleases.filter(item => item.status !== 'Por Iniciar' && item.status !== 'Rollout Efectuado')
 
   const markup = Extra.HTML().markup(m => m.inlineKeyboard(
     onGoingReleases.map(item => m.callbackButton(item.name, item.name)), { columns: 3 }))
