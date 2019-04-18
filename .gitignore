@@ -62,3 +62,5 @@ typings/
 
 # migration state
 .migrate
+
+bot/data
