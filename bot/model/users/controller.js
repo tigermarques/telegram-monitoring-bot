@@ -21,9 +21,30 @@ const remove = (username) => {
   return User.deleteOne({ username }).exec()
 }
 
+const updateVacation = async (username, newHolidays) => {
+  const user = await User.findOne({ username }).exec()
+  user.holidays = newHolidays
+  return user.save()
+}
+
+const updateOfficialHolidays = async (username, newHolidays) => {
+  const user = await User.findOne({ username }).exec()
+  user.officialHolidays = newHolidays
+  return user.save()
+}
+
+const updateTraining = async (username, newTraining) => {
+  const user = await User.findOne({ username }).exec()
+  user.trainings = newTraining
+  return user.save()
+}
+
 module.exports = {
   getAll,
   getByUsername,
   create,
-  remove
+  remove,
+  updateOfficialHolidays,
+  updateVacation,
+  updateTraining
 }

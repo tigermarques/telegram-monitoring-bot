@@ -7,7 +7,8 @@ const workTypeSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true
-    }
+    },
+    status: String
   },
   { timestamps: true }
 )

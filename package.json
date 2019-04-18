@@ -27,7 +27,9 @@
   "homepage": "https://github.com/tigermarques/telegram-monitoring-bot#readme",
   "dependencies": {
     "dotenv": "^7.0.0",
+    "file-type": "^10.11.0",
     "mongoose": "^5.5.1",
+    "node-fetch": "^2.3.0",
     "telegraf": "^3.29.0",
     "telegraf-command-parts": "^1.0.3",
     "xlsx": "^0.14.2"

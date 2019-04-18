@@ -22,7 +22,7 @@ const start = async () => {
   bot.use(middleware.filterScope(middleware.checkRegister(false), { include: ['register', 'registeradmin'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(true),
     { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs', 'missing'] }))
-  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs'] }))
+  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs', 'changesettings'] }))
 
   bot.start(commands.help)
   bot.help(commands.help)
@@ -32,6 +32,7 @@ const start = async () => {
   bot.command('getlogs', commands.getlogs)
   bot.command('missing', commands.missing)
   bot.use(commands.log)
+  bot.use(adminCommands.changesettings)
   bot.use(adminCommands.sendmessage)
   bot.use(adminCommands.getuserlogs)
 

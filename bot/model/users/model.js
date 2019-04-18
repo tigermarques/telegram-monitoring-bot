@@ -17,7 +17,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
       default: false
-    }
+    },
+    holidays: [Date],
+    officialHolidays: [Date],
+    trainings: [Date]
   },
   { timestamps: true }
 )
