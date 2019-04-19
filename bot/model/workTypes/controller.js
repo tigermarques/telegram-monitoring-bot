@@ -12,11 +12,10 @@ const replaceAll = async (newWorkTypes) => {
     const existingRelease = workTypes.find(item => item.name === newWorkType.name)
     if (!existingRelease) {
       // new
-      console.log(`Will create new WorkType with name ${newWorkType.name}`)
-      /* const newDoc = new WorkType({
+      const newDoc = new WorkType({
         name: newWorkType.name
-      }) */
-      // await newDoc.save()
+      })
+      await newDoc.save()
     }
   }
 
@@ -25,8 +24,7 @@ const replaceAll = async (newWorkTypes) => {
   // delete all that exist in workTypes but not in newWorkTypes
   const itemsToDelete = workTypes.filter(item => constNewWorkTypeCodes.indexOf(item.name) === -1)
   for (let i = 0; i < itemsToDelete.length; i++) {
-    console.log(`Will delete WorkType with name ${itemsToDelete[i].name}`)
-    // await WorkType.deleteOne({ _id: itemsToDelete[i]._id })
+    await WorkType.deleteOne({ _id: itemsToDelete[i]._id })
   }
 }
 

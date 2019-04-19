@@ -3,7 +3,8 @@ module.exports = {
     sourceType: 'module'
   },
   env: {
-    node: true
+    node: true,
+    mocha: true
   },
   extends: [
     'standard'
