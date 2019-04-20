@@ -22,6 +22,10 @@ const start = async (options = {}) => {
     { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs', 'missing'] }))
   bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs', 'changesettings'] }))
 
+  bot.use(commands.log)
+  bot.use(adminCommands.changesettings)
+  bot.use(adminCommands.sendmessage)
+  bot.use(adminCommands.getuserlogs)
   bot.start(commands.help)
   bot.help(commands.help)
   bot.command('register', commands.register)
@@ -29,10 +33,6 @@ const start = async (options = {}) => {
   bot.command('unregister', commands.unregister)
   bot.command('getlogs', commands.getlogs)
   bot.command('missing', commands.missing)
-  bot.use(commands.log)
-  bot.use(adminCommands.changesettings)
-  bot.use(adminCommands.sendmessage)
-  bot.use(adminCommands.getuserlogs)
 
   bot.startPolling()
 

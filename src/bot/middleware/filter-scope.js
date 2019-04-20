@@ -11,7 +11,6 @@ const matcher = command => (prev, item) => {
 module.exports = (handler, options) => (ctx, next) => {
   if (ctx.state.command) {
     const command = ctx.state.command.command
-    // console.log(`being called with ${command}`)
     let check = true
     if (options && options.include && Array.isArray(options.include)) {
       check = options.include.reduce(matcher(command), false)
