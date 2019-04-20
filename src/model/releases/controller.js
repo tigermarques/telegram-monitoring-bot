@@ -4,6 +4,11 @@ const getAll = () => {
   return Release.find().exec()
 }
 
+const getOngoing = async () => {
+  const allReleases = await getAll()
+  return allReleases.filter(item => item.status !== 'Por Iniciar' && item.status !== 'Rollout Efectuado')
+}
+
 const replaceAll = async (newReleases) => {
   const releases = await getAll()
 
@@ -37,5 +42,6 @@ const replaceAll = async (newReleases) => {
 
 module.exports = {
   getAll,
+  getOngoing,
   replaceAll
 }
