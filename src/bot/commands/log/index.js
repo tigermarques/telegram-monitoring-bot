@@ -288,10 +288,10 @@ scene.action(/^hours:(.+):(.+)$/, async (ctx, next) => {
     const hours = ctx.session.form.allSteps.find(item => item.id === 'answer5').text
     const newWork = await helper.handleAllAnswers(ctx.session.form.data.originator, month, day, release, workType, hours)
     ctx.reply(`O teu registo foi efectuado com sucesso. Obrigado!
-  Data: ${newWork.workDate.toISOString().split('T')[0]}
-  Release: ${newWork.release}
-  Tipo de Trabalho: ${newWork.workType}
-  Nº Horas: ${newWork.hours}`)
+Data: ${newWork.workDate.toISOString().split('T')[0]}
+Release: ${newWork.release}
+Tipo de Trabalho: ${newWork.workType}
+Nº Horas: ${newWork.hours}`)
     leave()(ctx)
   }
 })
