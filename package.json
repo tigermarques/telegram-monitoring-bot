@@ -8,7 +8,7 @@
     "lint": "eslint .",
     "serve": "nodemon -r dotenv/config index.js",
     "upgrade-database": "migrate up --store=\"./migrationState/index\"",
-    "build": "npm run upgrade-database",
+    "build": "npm test && npm run upgrade-database",
     "start": "node -r dotenv/config index.js"
   },
   "repository": {
