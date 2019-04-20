@@ -8,7 +8,12 @@ const command = ctx => {
     '/start - este mesmo comando! Igual a /help',
     '/register - para te registares no bot',
     '/unregister - para te removeres do bot',
-    '/log - para registares a tua alocação às releases. O bot vai perguntar-te a data, a release, o tipo de trabalho, e o número horas. Tenta garantir que registas apenas 8 horas por dia.',
+    [
+      '/log - para registares a tua alocação às releases. Podes correr este comando de 3 formas',
+      '* sem parâmetros, e o bot vai perguntar-te a data, a release, o tipo de trabalho, e o número horas.',
+      '* com a palavra \'today\', e o bot assume a data de hoje, e vai perguntar-te o resto da informação',
+      '* com uma data no formato YYYY-MM-DD, e o bot assume essa data, e vai perguntar-te o resto da informação'
+    ].join('\n'),
     [
       '/getlogs - para obteres os teus registos. Podes correr este comando de 3 formas',
       '* sem parâmetros, e ele devolve-te todos os teus registos',
