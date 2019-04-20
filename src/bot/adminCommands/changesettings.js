@@ -5,10 +5,10 @@ const Scene = require('telegraf/scenes/base')
 const fetch = require('node-fetch')
 const fileType = require('file-type')
 const xlsx = require('xlsx')
-const ExcelFileHandler = require('../utils/excelFileHandler')
-const workTypesModel = require('../model/workTypes')
-const releasesModel = require('../model/releases')
-const usersModel = require('../model/users')
+const ExcelFileHandler = require('../../utils/excelFileHandler')
+const workTypesModel = require('../../model/workTypes')
+const releasesModel = require('../../model/releases')
+const usersModel = require('../../model/users')
 const { enter, leave } = Stage
 
 const prepareQuestion1 = async () => {

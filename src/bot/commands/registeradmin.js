@@ -1,4 +1,4 @@
-const usersModel = require('../model/users')
+const usersModel = require('../../model/users')
 
 const command = async ctx => {
   const username = ctx.state.from

@@ -1,0 +1,3 @@
+test/**/*.js
+--timeout 12000
+--exit

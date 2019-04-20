@@ -1,14 +1,12 @@
 const Telegraf = require('telegraf')
 const session = require('telegraf/session')
 const commandParts = require('telegraf-command-parts')
-const db = require('./utils/db')
 const commands = require('./commands')
 const adminCommands = require('./adminCommands')
 const middleware = require('./middleware')
 
-const start = async () => {
-  await db.connect()
-  const bot = new Telegraf(process.env.TELEGRAM_API_TOKEN)
+const start = async (options = {}) => {
+  const bot = new Telegraf(process.env.TELEGRAM_API_TOKEN, options)
 
   // this stores the commands in ctx.state.command, with the following properties
   // text '/start@yourbot Hello world!'
@@ -36,7 +34,7 @@ const start = async () => {
   bot.use(adminCommands.sendmessage)
   bot.use(adminCommands.getuserlogs)
 
-  bot.launch()
+  bot.startPolling()
 
   return bot
 }

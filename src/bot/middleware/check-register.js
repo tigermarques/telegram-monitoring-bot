@@ -1,4 +1,4 @@
-const usersModel = require('../model/users')
+const usersModel = require('../../model/users')
 
 const middleware = mustBeUser => async (ctx, next) => {
   // console.log('calling check-register')

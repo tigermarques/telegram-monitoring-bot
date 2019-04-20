@@ -1,4 +1,4 @@
-const usersModel = require('../model/users')
+const usersModel = require('../../model/users')
 
 const middleware = mustBeAdmin => async (ctx, next) => {
   // console.log('calling check-admin')

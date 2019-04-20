@@ -2,7 +2,7 @@ const Composer = require('telegraf/composer')
 const Extra = require('telegraf/extra')
 const Stage = require('telegraf/stage')
 const Scene = require('telegraf/scenes/base')
-const usersModel = require('../model/users')
+const usersModel = require('../../model/users')
 const { enter, leave } = Stage
 
 const prepareQuestion1 = async (username) => {
