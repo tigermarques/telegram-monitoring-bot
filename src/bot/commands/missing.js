@@ -1,6 +1,6 @@
 const Extra = require('telegraf/extra')
-const workModel = require('../model/work')
-const userModel = require('../model/users')
+const workModel = require('../../model/work')
+const userModel = require('../../model/users')
 
 const startDateToCheck = new Date(Date.UTC(2019, 3, 8, 0, 0, 0))
 

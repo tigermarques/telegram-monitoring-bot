@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const Mockgoose = require('mockgoose').Mockgoose
 const chai = require('chai')
 const chaiSubset = require('chai-subset')
-const db = require('../../bot/utils/db')
-const workTypesModel = require('../../bot/model/workTypes')
+const db = require('../../src/utils/db')
+const workTypesModel = require('../../src/model/workTypes')
 
 chai.use(chaiSubset)
 const expect = chai.expect

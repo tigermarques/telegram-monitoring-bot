@@ -1,5 +1,5 @@
 const xlsx = require('xlsx')
-const workModel = require('../model/work')
+const workModel = require('../../model/work')
 
 const fullRegex = /^(\d{4})-(\d{2})-(\d{2}) (\d{4})-(\d{2})-(\d{2})$/
 const simpleRegex = /^(\d{4})-(\d{2})-(\d{2})$/

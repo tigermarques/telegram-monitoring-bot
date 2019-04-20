@@ -2,9 +2,9 @@ const Composer = require('telegraf/composer')
 const Extra = require('telegraf/extra')
 const Stage = require('telegraf/stage')
 const Scene = require('telegraf/scenes/base')
-const releasesModel = require('../model/releases')
-const workTypesModel = require('../model/workTypes')
-const workModel = require('../model/work')
+const releasesModel = require('../../model/releases')
+const workTypesModel = require('../../model/workTypes')
+const workModel = require('../../model/work')
 const { enter, leave } = Stage
 
 const months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
