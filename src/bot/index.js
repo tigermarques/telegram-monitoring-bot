@@ -19,19 +19,18 @@ const start = async (options = {}) => {
   bot.use(middleware.filterScope(middleware.checkUsername, { exclude: ['start', 'help'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(false), { include: ['register', 'registeradmin'] }))
   bot.use(middleware.filterScope(middleware.checkRegister(true),
-    { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'getuserlogs', 'missing'] }))
-  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'getuserlogs', 'changesettings'] }))
+    { include: ['unregister', 'sendmessage', 'log', 'getlogs', 'missing'] }))
+  bot.use(middleware.filterScope(middleware.checkAdmin(true), { include: ['sendmessage', 'changesettings'] }))
 
   bot.use(commands.log)
   bot.use(adminCommands.changesettings)
   bot.use(adminCommands.sendmessage)
-  bot.use(adminCommands.getuserlogs)
+  bot.use(commands.getlogs)
   bot.start(commands.help)
   bot.help(commands.help)
   bot.command('register', commands.register)
   bot.command('registeradmin', commands.registeradmin)
   bot.command('unregister', commands.unregister)
-  bot.command('getlogs', commands.getlogs)
   bot.command('missing', commands.missing)
 
   bot.startPolling()

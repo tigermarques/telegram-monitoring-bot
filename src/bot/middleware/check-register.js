@@ -8,6 +8,7 @@ const middleware = mustBeUser => async (ctx, next) => {
   } else if (!mustBeUser && user) {
     ctx.reply('Já estás registado no bot')
   } else {
+    ctx.state.isAdmin = user.isAdmin
     next()
   }
 }
