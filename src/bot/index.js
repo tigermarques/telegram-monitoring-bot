@@ -4,6 +4,7 @@ const commandParts = require('telegraf-command-parts')
 const commands = require('./commands')
 const adminCommands = require('./adminCommands')
 const middleware = require('./middleware')
+const scheduler = require('./scheduler')
 
 const start = async (options = {}) => {
   const bot = new Telegraf(process.env.TELEGRAM_API_TOKEN, options)
@@ -34,6 +35,8 @@ const start = async (options = {}) => {
   bot.command('missing', commands.missing)
 
   bot.startPolling()
+
+  scheduler.start(bot)
 
   return bot
 }

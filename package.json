@@ -30,6 +30,7 @@
     "file-type": "^10.11.0",
     "mongoose": "^5.5.1",
     "node-fetch": "^2.3.0",
+    "node-schedule": "^1.3.2",
     "shortid": "^2.2.14",
     "telegraf": "^3.29.0",
     "telegraf-command-parts": "^1.0.3",
