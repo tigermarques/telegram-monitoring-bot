@@ -8,7 +8,6 @@ const middleware = mustBeAdmin => async (ctx, next) => {
   } else if (!mustBeAdmin && user.isAdmin) {
     ctx.reply('Para realizar este comando não podes ser administrador')
   } else {
-    ctx.state.isAdmin = user.isAdmin
     next()
   }
 }
