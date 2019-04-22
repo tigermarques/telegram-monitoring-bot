@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
       default: false
     },
     holidays: [Date],
+    absences: [Date],
     officialHolidays: [Date],
     trainings: [Date]
   },

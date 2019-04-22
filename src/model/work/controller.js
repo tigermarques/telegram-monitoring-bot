@@ -1,7 +1,7 @@
 const Work = require('./model')
 const userModel = require('../users')
 
-const startDateToCheck = new Date(Date.UTC(2019, 3, 8, 0, 0, 0))
+const startDateToCheck = new Date(Date.UTC(2019, 3, 15, 0, 0, 0))
 
 const getDates = function (startDate, endDate) {
   const dates = []
@@ -49,6 +49,10 @@ const getMissing = async (username, makeTodayCount) => {
   // remove vacation
   if (user.holidays) {
     dates = dates.filter(date => !user.holidays.find(vacation => vacation.getTime() === date.getTime()))
+  }
+  // remove absences
+  if (user.absences) {
+    dates = dates.filter(date => !user.absences.find(absence => absence.getTime() === date.getTime()))
   }
   // remove official holidays
   if (user.officialHolidays) {

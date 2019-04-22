@@ -24,7 +24,7 @@ const prepareQuestion2 = async (optionalMessage) => {
   const options = [
     { name: 'Actualizar tipos de trabalho', value: 'workTypes' },
     { name: 'Actualizar releases', value: 'releases' },
-    { name: 'Actualizar férias, formações e feriados', value: 'vacation' },
+    { name: 'Actualizar férias, formações, feriados e ausências', value: 'vacation' },
     { name: 'Terminar', value: 'finish' }
   ]
 
@@ -163,6 +163,7 @@ scene.on('callback_query', async ctx => {
           const allUsers = await usersModel.getAll()
           for (let i = 0; i < allUsers.length; i++) {
             const newVacations = excelModel.getUserHolidays(allUsers[i].username)
+            const newAbsences = excelModel.getAbsences(allUsers[i].username)
             let newOfficialHolidays = excelModel.getUserOfficialHolidays(allUsers[i].username)
             const newTraining = excelModel.getUserTraining(allUsers[i].username)
             const userStandbys = excelModel.getUserOfficialHolidayStandbys(allUsers[i].username)
@@ -172,9 +173,10 @@ scene.on('callback_query', async ctx => {
             await usersModel.updateVacation(allUsers[i].username, newVacations || [])
             await usersModel.updateOfficialHolidays(allUsers[i].username, newOfficialHolidays || [])
             await usersModel.updateTraining(allUsers[i].username, newTraining || [])
+            await usersModel.updateAbsences(allUsers[i].username, newAbsences || [])
           }
 
-          newQuestion = await prepareQuestion2('Férias, formações e feriados actualizados')
+          newQuestion = await prepareQuestion2('Férias, formações, feriados e ausências actualizados')
           newQuestionStep = {
             id: 'question2',
             text: newQuestion.text

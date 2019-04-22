@@ -23,6 +23,11 @@ const OFFICIAL_HOLIDAYS_SHEET = 'Feriados'
 const OFFICIAL_HOLIDAYS_COUNTRY_COLUMN = 'A'
 const OFFICIAL_HOLIDAYS_DATE_COLUMN = 'B'
 
+// Absences
+const ABSENCES_SHEET = 'Ausências'
+const ABSENCES_ACRONYM_COLUMN = 'A'
+const ABSENCES_DATE_COLUMN = 'B'
+
 // Training
 const TRAINING_SHEET = 'Formações'
 
@@ -224,6 +229,31 @@ class ExcelFileHandler {
       }
 
       return result.filter(item => item.acronym === acronym && item.type === 'Feriado')
+        .map(item => xlsx.SSF.parse_date_code(item.date))
+        .map(item => new Date(Date.UTC(item.y, item.m - 1, item.d)))
+    } else {
+      return null
+    }
+  }
+
+  getAbsences (username) {
+    const acronym = this.getUserAcronym(username)
+
+    if (acronym) {
+      const result = []
+      const sheet = this.workbook.Sheets[ABSENCES_SHEET]
+      let startRow = 2
+      let currentRowAcronym = getCellValue(sheet, `${ABSENCES_ACRONYM_COLUMN}${startRow}`)
+      while (currentRowAcronym) {
+        result.push({
+          acronym: currentRowAcronym,
+          date: getCellValue(sheet, `${ABSENCES_DATE_COLUMN}${startRow}`)
+        })
+        startRow++
+        currentRowAcronym = getCellValue(sheet, `${STANDBY_ACRONYM_COLUMN}${startRow}`)
+      }
+
+      return result.filter(item => item.acronym === acronym)
         .map(item => xlsx.SSF.parse_date_code(item.date))
         .map(item => new Date(Date.UTC(item.y, item.m - 1, item.d)))
     } else {

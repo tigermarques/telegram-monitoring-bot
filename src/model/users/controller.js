@@ -39,11 +39,18 @@ const updateTraining = async (username, newTraining) => {
   return user.save()
 }
 
+const updateAbsences = async (username, newAbsences) => {
+  const user = await User.findOne({ username }).exec()
+  user.absences = newAbsences
+  return user.save()
+}
+
 module.exports = {
   getAll,
   getByUsername,
   create,
   remove,
+  updateAbsences,
   updateOfficialHolidays,
   updateVacation,
   updateTraining
