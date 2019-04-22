@@ -3,7 +3,7 @@ const usersModel = require('../../model/users')
 
 const command = async ctx => {
   const user = await usersModel.getByUsername(ctx.message.from.username)
-  const isAdmin = user.isAdmin
+  const isAdmin = user && user.isAdmin
   const messages = [
     'Bem vindo ao Bot para Gestão ATL' + (isAdmin ? ' em modo admin' : ''),
     'A lista de comandos é:',
