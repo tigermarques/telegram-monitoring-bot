@@ -78,7 +78,7 @@ scene.enter(async ctx => {
     const date1 = new Date(Number(groups[1]), Number(groups[2]) - 1, Number(groups[3]), 0, 0, 0)
     const date2 = new Date(Number(groups[4]), Number(groups[5]) - 1, Number(groups[6]), 23, 59, 59)
     filter = item => {
-      return item.workDate >= date1 && item.date <= date2
+      return item.workDate >= date1 && item.workDate <= date2
     }
   } else if (simpleRegex.test(args)) {
     // they used /getlogs date1
