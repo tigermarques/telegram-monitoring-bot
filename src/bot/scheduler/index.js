@@ -14,16 +14,14 @@ module.exports = {
           const missingRecords = await workModel.getMissing(user.username, false)
 
           if (missingRecords.length > 0) {
-            if (user.username === 'jgmarques') {
-              bot.telegram.sendMessage(user.chatId, [
-                'Tens as seguintes horas em falta:',
-                missingRecords.map(item => `${item.date.toISOString().split('T')[0]} - ${item.missingHours} hora(s)`).join('\n'),
-                '',
-                'Por favor usa o commando /getlogs para verificares o que já registaste, e o comando /log para registar o que tens em falta',
-                '',
-                'Esta é uma mensagem gerada automaticamente'
-              ].join('\n'), Extra.HTML())
-            }
+            bot.telegram.sendMessage(user.chatId, [
+              'Tens as seguintes horas em falta:',
+              missingRecords.map(item => `${item.date.toISOString().split('T')[0]} - ${item.missingHours} hora(s)`).join('\n'),
+              '',
+              'Por favor usa o commando /getlogs para verificares o que já registaste, e o comando /log para registar o que tens em falta',
+              '',
+              'Esta é uma mensagem gerada automaticamente'
+            ].join('\n'), Extra.HTML())
           }
         }
       })
