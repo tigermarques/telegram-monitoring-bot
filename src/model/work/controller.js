@@ -23,7 +23,7 @@ const getAll = () => {
 }
 
 const add = (username, month, day, release, workType, hours) => {
-  const date = Date.UTC(2019, month, day, 0, 0, 0)
+  const date = Date.UTC(new Date().getFullYear(), month, day, 0, 0, 0)
   const newUser = new Work({
     username,
     release,

@@ -22,7 +22,7 @@ const getQuestion1 = () => {
 }
 
 const getQuestion2 = (monthChosen) => {
-  const numberOfDays = new Date(2019, monthChosen + 1, 0).getDate()
+  const numberOfDays = new Date(new Date().getFullYear(), monthChosen + 1, 0).getDate()
   const days = Array.apply(null, { length: numberOfDays }).map(Number.call, Number).map(item => item + 1)
 
   const arr = days.map(item => {

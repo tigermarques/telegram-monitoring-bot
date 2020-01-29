@@ -25,7 +25,7 @@ const prepareQuestion1 = async (formId) => {
 const prepareQuestion2 = async (formId, monthChosen) => {
   const question = await helper.getQuestion2(monthChosen)
 
-  const firstWeekDay = new Date(2019, monthChosen, 1, 0, 0, 0).getDay()
+  const firstWeekDay = new Date(new Date().getFullYear(), monthChosen, 1, 0, 0, 0).getDay()
   for (let i = 0; i < firstWeekDay; i++) {
     question.options.unshift({
       name: ' ',

@@ -45,7 +45,7 @@ describe('/log command helper', () => {
 
   const monthSetup = [
     { month: 0, days: 31, monthName: 'January' },
-    { month: 1, days: 28, monthName: 'February' },
+    { month: 1, days: 29, monthName: 'February' }, // hardcoded because 2020 changes
     { month: 2, days: 31, monthName: 'March' },
     { month: 3, days: 30, monthName: 'April' },
     { month: 4, days: 31, monthName: 'May' },
