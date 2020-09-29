@@ -1,7 +1,7 @@
 const Work = require('./model')
 const userModel = require('../users')
 
-const startDateToCheck = new Date(Date.UTC(2019, 3, 15, 0, 0, 0))
+const startDateToCheck = new Date(Date.UTC(2020, 8, 1, 0, 0, 0))
 
 const getDates = function (startDate, endDate) {
   const dates = []
