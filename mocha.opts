@@ -1,3 +1,0 @@
-test/**/*.js
---timeout 120000
---exit
