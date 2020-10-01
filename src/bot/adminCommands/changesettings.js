@@ -74,7 +74,7 @@ scene.on('document', async ctx => {
 
   // get file buffer from telegram
   const file = await fetch(fileLink).then(res => res.buffer())
-  const type = fileType.fromBuffer(file)
+  const type = await fileType.fromBuffer(file)
 
   ctx.deleteMessage(ctx.session.form.allSteps.find(item => item.id === 'question1').messageId)
   ctx.session.form.currentStep = 'answer1'
