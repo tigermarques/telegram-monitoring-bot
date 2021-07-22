@@ -34,7 +34,7 @@
     "shortid": "^2.2.15",
     "telegraf": "^3.38.0",
     "telegraf-command-parts": "^1.0.3",
-    "xlsx": "^0.16.7"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
